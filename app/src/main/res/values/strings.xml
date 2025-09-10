@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Design Patterns</string>
+    <string name="memory_leak_example">Memory leak example</string>
 </resources>
