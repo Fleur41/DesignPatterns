@@ -23,12 +23,29 @@ android {
     }
 
     buildTypes {
+        debug{
+            applicationIdSuffix = ".debug"
+            buildConfigField("String", "DEVELOPER_NAME", "\"FleurK\"")
+            manifestPlaceholders["orientation"] = "portrait"
+        }
         release {
-            isMinifyEnabled = false
+            //isDebuggable = true
+            isMinifyEnabled = true
+            isShrinkResources = true  //(Shrinks resources e.g photos)
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "DEVELOPER_NAME", "\"Rajesh Hadiya\"")
+            manifestPlaceholders["orientation"] = "portrait"
+            //signingConfig = signingConfigs.getByName("debug") for release(inside build variants)
+        }
+
+        create("staging") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".staging"
+            buildConfigField("String", "DEVELOPER_NAME", "\"Kushal Sharma\"")
+            manifestPlaceholders["orientation"] = "landscape"
         }
     }
     compileOptions {
@@ -40,6 +57,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -48,6 +66,10 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     debugImplementation(libs.leakcanary.android)
+    //from new module
+    implementation(project(":mylibrary"))
+    //navigation
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Design Patterns"
 include(":app")
- 
+include(":mylibrary")
